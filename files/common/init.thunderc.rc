@@ -4,14 +4,31 @@ on boot-pause
 
 # This does the initial RLE animation for the vendor logo.
 # Taken verbatim from the stock init.rc.
-service bootlogo /sbin/bootlogo
-  user root
-  group root
-  oneshot
+#service bootlogo /sbin/bootlogo
+#  user root
+#  group root
+#  oneshot
 
 # * If booted via power button
-on early-boot
-  start bootlogo
+#on early-boot
+#  start bootlogo
+on post-fs
+    # wifi
+    chmod 0777 /data/misc/wifi/config_mac
+    mkdir /data/audioprop 0777 system system
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    setprop wifi.supplicant_scan_interval 20
+    setprop wifi.interface wlan0
+    mkdir /data/misc/dhcp 0777 system system
+	
+on post-fs-data
+
+    # wifi
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+    mkdir /data/misc/hotspot 0770 system hotspot	
 
 on boot
 	# Update the mountpoints to noatime
@@ -132,13 +149,33 @@ on boot
 
 # LGE_CHANGE_S, [jisung.yang@lge.com] 2010-04-24, <make wifi directory>
 # WIFI
-	mkdir /data/misc/wifi/sockets 0770 wifi wifi
-	setprop wifi.supplicant_scan_interval 20
-	setprop wifi.interface wlan0
+	setprop persist.sys.gmaps_hack 1
+    setprop ro.squadzone.build 1
 	mkdir /data/disk 0777 system system
-
+#	chmod 0770 /system/etc/wifi
+#	chmod 0660/system/etc/wifi/wpa_supplicant.conf
+#    chown system wifi /system/etc/wifi/wpa_supplicant.conf
+#    mkdir /data/misc 01771 system misc
+#    mkdir /data/misc/wifi 0770 system wifi
+#    mkdir /data/misc/wifi/sockets
+#    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
+#    chown system wifi /data/misc/wifi/sockets
+#	chown wifi wifi /data/misc/wifi
+#    chown wifi wifi /data/misc/wifi/wpa_supplicant.conf
+#    chmod 770 /data/misc/wifi/sockets
+#    mkdir /data/misc/dhcp 0770 dhcp dhcp
+#    chown dhcp dhcp /data/misc/dhcp
+#
+    # wifi
+    mkdir /data/misc 01771 system misc
+    mkdir /data/misc/wifi 0770 system wifi
+    mkdir /data/misc/wifi/sockets
+    chmod 770 /data/misc/wifi/sockets
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+    mkdir /data/system 0775 system system
 #DHCP
-	mkdir /data/misc/dhcp 0777 system system
+
 	chmod 0666 /data/bdaddr
 
 ## ERS
@@ -207,26 +244,26 @@ service ami304d /system/bin/ami304d
 #on property:init.svc.bootanim=stopped
 #	 start port-bridge
 
+
+
+service dhcpcd_wlan0 /system/bin/dhcpcd -BKLA wlan0 # disable ARP operation
+	disabled
+	oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n wlan0 
+	disabled
+	oneshot
+
+on property:init.svc.wpa_supplicant=stopped
+    stop dhcpcd_wlan0
+# LGE_CHANGE_E, [jisung.yang@lge.com], 2010-04-24,<register WLAN services>
+
 # LGE_CHANGE_S, [jisung.yang@lge.com], 2010-04-24,<register WLAN services>
 service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf #-dd
 	socket wpa_wlan0 dgram 660 wifi wifi
 	group system wifi inet
 	disabled
 	oneshot
-#	console
-
-#service dhcpcd /system/bin/dhcpcd -B wlan0
-service dhcpcd_wlan0 /system/bin/dhcpcd -BKLA wlan0 # disable ARP operation
-	disabled
-	oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n # ensures ip renewal on some routers/networks
-	disabled
-	oneshot
-
-on property:init.svc.wpa_supplicant=stopped
-stop dhcpcd_wlan0
-# LGE_CHANGE_E, [jisung.yang@lge.com], 2010-04-24,<register WLAN services>
 
 # Adb over Network
 on property:service.adb.tcp.port=5555
@@ -241,10 +278,8 @@ on property:service.adb.tcp.port=-1
 
 on property:dev.bootcomplete=1
 	start qcom-post-boot
-
-#on property:dev.bootcomplete=1
-#	 stop dhcp-service
-#	 start dhcp-service
+	 stop dhcp-service
+	 start dhcp-service
 
 
 service rmt_storage /system/bin/rmt_storage /dev/block/mmcblk0p10 /dev/block/mmcblk0p11
@@ -264,21 +299,4 @@ service bugreport /system/bin/logwrapper /system/bin/dumpstate -d -v -o /sdcard/
 	oneshot
 	keycodes 114 139
 
-# LGE_CHANGE_S [jeongku.choi@lge.com] 2010-07-09, [CIQ] adapting patch files
-service iqmsd /system/bin/iqmsd
-	disabled
 
-on property:service.iq.active=1
-	start iqmsd
-
-on property:service.iq.active=0
-	stop iqmsd
-
-# LGE_CHANGE_E [jeongku.choi@lge.com] 2010-07-09, [CIQ]
-
-# LGE_CHANGE [dojip.kim@lge.com] 2010-06-14, from VS660
-# LGE_CHANGE [dojip.kim@lge.com] 2010-09-29, no auto udpate in mass
-# mcs6000 TOUCH F/W AUTO upgrade run
-# LGE_CHANGE [younchan.kim,2010-06-13] 
-#service tsdown /system/bin/tsdown
-#	oneshot

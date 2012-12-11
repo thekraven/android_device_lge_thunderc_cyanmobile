@@ -26,7 +26,7 @@ DEVICE_PROVISIONED=1
 ro.lge.vibrator_amp=125
 ## wifi
 wifi.interface=wlan0
-wifi.supplicant_scan_interval=35
+wifi.supplicant_scan_interval=120
 ## opengles 2.0
 ro.opengles.version=131072
 #ro.ril.ecclist=112,911
@@ -88,6 +88,8 @@ debug.sf.hw=1
 windowsmgr.max_events_per_sec=260
 ro.telephony.call_ring.multiple=false
 
+# BT 
+ro.bt.bdaddr_path=/data/misc/bd_addr
 # ADDITIONAL_BUILD_PROPERTIES
 # NETWORK BASED PLUS CODE DIALING
 # 0 disable
@@ -106,6 +108,16 @@ ro.ril.htcmaskw1.bitmask=4294967295
 ro.ril.htcmaskw1=14449
 ro.ril.hsupa.category=9
 
+# ADDITIONAL CYANMOBILE PROPERTIES
+debug.composition.type=gpu
+persist.sys.composition.type=gpu
+persist.sys.ui.hw=true
+#dalvik.vm.lockprof.threshold=500
+dalvik.vm.dexopt-data-only=1
+ro.config.hw_menu_unlockscreen=false
+ro.service.swiqi.supported=true
+#persist.sys.themeId=ICStransV3 UOT
+#persist.sys.themePackageName=com.uotkitchen.theme.icstransv3
 # Common to all CDMA variants (IHO)
 ro.com.google.locationfeatures=1
 ro.cdma.voicemail.number=mine
