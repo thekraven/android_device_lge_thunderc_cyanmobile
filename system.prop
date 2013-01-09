@@ -108,6 +108,16 @@ ro.ril.htcmaskw1.bitmask=4294967295
 ro.ril.htcmaskw1=14449
 ro.ril.hsupa.category=9
 
+# Google DNS Tweak 
+net.rmnet0.dns1=8.8.8.8 
+net.rmnet0.dns2=8.8.4.4 
+net.dns1=8.8.8.8 
+net.dns2=8.8.4.4 
+
+# Power Save tweaks 
+ro.ril.disable.power.collapse=1 
+pm.sleep_mode=1 
+
 # ADDITIONAL CYANMOBILE PROPERTIES
 debug.composition.type=gpu
 persist.sys.composition.type=gpu
@@ -116,8 +126,8 @@ persist.sys.ui.hw=true
 dalvik.vm.dexopt-data-only=1
 ro.config.hw_menu_unlockscreen=false
 ro.service.swiqi.supported=true
-#persist.sys.themeId=ICStransV3 UOT
-#persist.sys.themePackageName=com.uotkitchen.theme.icstransv3
+persist.sys.themeId=ICStransV3 UOT
+persist.sys.themePackageName=com.uotkitchen.theme.icstransv3
 # Common to all CDMA variants (IHO)
 ro.com.google.locationfeatures=1
 ro.cdma.voicemail.number=mine

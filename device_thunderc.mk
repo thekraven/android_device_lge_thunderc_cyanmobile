@@ -11,6 +11,9 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     gps.thunderc \
+	gralloc.thunderc \
+	copybit.thunderc \
+    libsensorservice \
     librs_jni \
     libmm-omxcore \
     libOmxCore \
@@ -20,7 +23,11 @@ PRODUCT_PACKAGES += \
     erase_image \
     e2fsck \
     SpareParts \
+	libcamera \
     CMWallpapers \
+    CMTimers \
+	CMDroidwall \
+	 rzscontrol \
     LiveWallpapers \
     LiveWallpapersPicker \
     MagicSmokeWallpapers \
@@ -56,16 +63,19 @@ PRODUCT_COPY_FILES += \
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
-    device/lge/thunderc/files/common/usr/keylayout/thunder_keypad.kl:system/usr/keylayout/7k_handset.kl \
+    device/lge/thunderc/files/common/usr/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
     device/lge/thunderc/files/common/usr/keylayout/thunder_keypad.kl:system/usr/keylayout/thunder_keypad.kl \
+    device/lge/thunderc/files/common/usr/keylayout/thunder_keypad.kl:system/usr/keylayout/thunderc_keypad.kl \	
     device/lge/thunderc/files/handset-keypress:system/bin/handset-keypress \
     vendor/lge/thunderc/proprietary/system/usr/keychars/thunder_keypad.kcm.bin:system/usr/keychars/thunder_keypad.kcm.bin \
+    vendor/lge/thunderc/proprietary/system/usr/keychars/thunder_keypad.kcm.bin:system/usr/keychars/thunderc_keypad.kcm.bin \	
 
 # Board-specific init
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/common/init.thunderc.rc:root/init.thunderc.rc \
+    device/lge/thunderc/files/common/init.thunderc.rc:root/init.thunder.rc \
     device/lge/thunderc/files/common/ueventd.thunderc.rc:root/ueventd.thunder.rc \
-	    device/lge/thunderc/files/common/ueventd.thunderc.rc:root/ueventd.thunderc.rc \
+    device/lge/thunderc/files/common/ueventd.thunderc.rc:root/ueventd.thunderc.rc \
     device/lge/thunderc/files/common/etc/init.local.rc:/system/etc/init.local.rc
 
 # Off-mode charging pieces
@@ -107,17 +117,16 @@ PRODUCT_COPY_FILES += \
 #endif
 
 # 2D (using proprietary because of poor performance of open source libs)
-PRODUCT_COPY_FILES += \
-    vendor/lge/thunderc/proprietary/system/lib/hw/gralloc.default.so:system/lib/hw/gralloc.default.so \
-    vendor/lge/thunderc/proprietary/system/lib/hw/gralloc.thunderc.so:system/lib/hw/gralloc.thunderc.so \
-    vendor/lge/thunderc/proprietary/system/lib/hw/copybit.thunderc.so:system/lib/hw/copybit.thunderc.so \
-
+#PRODUCT_COPY_FILES += \
+#    vendor/lge/thunderc/proprietary/system2/lib/hw/gralloc.msm7k.so:system/lib/hw/gralloc.msm7k.so \
+#    vendor/lge/thunderc/proprietary/system2/lib/hw/copybit.msm7k.so:system/lib/hw/copybit.thunderc.so \
+#    vendor/lge/thunderc/proprietary/system2/lib/hw/gralloc.default.so:system/lib/hw/gralloc.default.so \
 # Sensors
 PRODUCT_COPY_FILES += \
-    vendor/lge/thunderc/proprietary/system/lib/hw/sensors.thunderc.so:system/lib/hw/sensors.thunderc.so \
-    vendor/lge/thunderc/proprietary/system/bin/ami304d:system/bin/ami304d \
-
-# GPS
+    vendor/lge/thunderc/proprietary/system2/bin/ami304d:system/bin/ami304d \
+    vendor/lge/thunderc/proprietary/system2/lib/hw/sensors.thunderc.so:system/lib/hw/sensors.thunderc.so \
+#    vendor/lge/thunderc/proprietary/system2/lib/libsensorservice.so:system/lib/libsensorservice.so \
+	# GPS
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/common/etc/loc_parameter.ini:system/etc/loc_parameter.ini \
     vendor/lge/thunderc/proprietary/system/lib/libloc_api.so:system/lib/libloc_api.so \
@@ -147,7 +156,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/LS670/kernel/wireless.ko:system/lib/modules/wireless.ko \
     device/lge/thunderc/files/LS670/kernel/tun.ko:system/lib/modules/tun.ko \
-    device/lge/thunderc/files/LS670/kernel/cifs.ko:system/lib/modules/cifs.ko \
+    device/lge/thunderc/files/LS670/kernel/librasdioif.ko:system/lib/modules/librasdioif.ko \
     device/lge/thunderc/files/common/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     vendor/lge/thunderc/proprietary/system/etc/wl/nvram.txt:system/etc/wl/nvram.txt \
     device/lge/thunderc/files/common/etc/dhcpcd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
@@ -235,7 +244,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/common/etc/media_profiles.xml:system/etc/media_profiles.xml \
-    device/lge/thunderc/files/common/etc/init.d/mvdalvik.sh:system/etc/init.d/01mvdalvik \
+#    device/lge/thunderc/files/common/etc/init.d/mvdalvik.sh:system/etc/init.d/01mvdalvik \
 
 # Let's use our own GPS config file
 PRODUCT_COPY_FILES += device/lge/thunderc/files/common/etc/gps.conf:system/etc/gps.conf
