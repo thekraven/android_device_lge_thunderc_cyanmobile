@@ -124,4 +124,30 @@
         <item>29</item>
         <item>30</item>
      </string-array>
+	 
+    <string-array name="entries_battery">
+        <item>1 second</item>
+        <item>5 seconds</item>
+        <item>10 seconds</item>
+        <item>20 seconds</item>
+        <item>30 seconds</item>
+        <item>40 seconds</item>
+        <item>50 seconds</item>
+        <item>1 minute</item>
+        <item>1.5 minutes</item>
+        <item>2 minutes</item>
+    </string-array>
+
+    <string-array name="values_battery" translatable="false">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+    </string-array>
 </resources>

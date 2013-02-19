@@ -10,10 +10,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
 PRODUCT_PACKAGES += \
-    gps.thunderc \
-	gralloc.thunderc \
-	copybit.thunderc \
-    libsensorservice \
     librs_jni \
     libmm-omxcore \
     libOmxCore \
@@ -65,10 +61,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/common/usr/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
     device/lge/thunderc/files/common/usr/keylayout/thunder_keypad.kl:system/usr/keylayout/thunder_keypad.kl \
-    device/lge/thunderc/files/common/usr/keylayout/thunder_keypad.kl:system/usr/keylayout/thunderc_keypad.kl \	
+    device/lge/thunderc/files/common/usr/keylayout/thunder_keypad.kl:system/usr/keylayout/thunderc_keypad.kl \
     device/lge/thunderc/files/handset-keypress:system/bin/handset-keypress \
     vendor/lge/thunderc/proprietary/system/usr/keychars/thunder_keypad.kcm.bin:system/usr/keychars/thunder_keypad.kcm.bin \
-    vendor/lge/thunderc/proprietary/system/usr/keychars/thunder_keypad.kcm.bin:system/usr/keychars/thunderc_keypad.kcm.bin \	
+    vendor/lge/thunderc/proprietary/system/usr/keychars/thunder_keypad.kcm.bin:system/usr/keychars/thunderc_keypad.kcm.bin \
 
 # Board-specific init
 PRODUCT_COPY_FILES += \
@@ -118,14 +114,16 @@ PRODUCT_COPY_FILES += \
 
 # 2D (using proprietary because of poor performance of open source libs)
 #PRODUCT_COPY_FILES += \
-#    vendor/lge/thunderc/proprietary/system2/lib/hw/gralloc.msm7k.so:system/lib/hw/gralloc.msm7k.so \
-#    vendor/lge/thunderc/proprietary/system2/lib/hw/copybit.msm7k.so:system/lib/hw/copybit.thunderc.so \
-#    vendor/lge/thunderc/proprietary/system2/lib/hw/gralloc.default.so:system/lib/hw/gralloc.default.so \
+    vendor/lge/thunderc/proprietary/system2/lib/hw/gralloc.msm7k.so:system/lib/hw/gralloc.thunderc.so \
+    vendor/lge/thunderc/proprietary/system2/lib/hw/copybit.msm7k.so:system/lib/hw/copybit.thunderc.so \
+    vendor/lge/thunderc/proprietary/system2/lib/hw/gralloc.default.so:system/lib/hw/gralloc.default.so \
+	    vendor/lge/thunderc/proprietary/system2/lib/hw/gps.thunderc.so:system/lib/hw/gps.thunderc.so \
+
 # Sensors
 PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/system2/bin/ami304d:system/bin/ami304d \
     vendor/lge/thunderc/proprietary/system2/lib/hw/sensors.thunderc.so:system/lib/hw/sensors.thunderc.so \
-#    vendor/lge/thunderc/proprietary/system2/lib/libsensorservice.so:system/lib/libsensorservice.so \
+    vendor/lge/thunderc/proprietary/system2/lib/libsensorservice.so:system/lib/libsensorservice.so \
 	# GPS
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/common/etc/loc_parameter.ini:system/etc/loc_parameter.ini \
